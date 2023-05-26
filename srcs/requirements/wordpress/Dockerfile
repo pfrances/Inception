@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Dockerfile                                         :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: pfrances <pfrances@student.42tokyo.jp>     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/05/26 12:19:44 by pfrances          #+#    #+#              #
+#    Updated: 2023/05/26 12:19:45 by pfrances         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 FROM debian:buster
 
 RUN apt update && apt upgrade -y && apt install wget php7.3 php-fpm php-mysql mariadb-client -y	\
