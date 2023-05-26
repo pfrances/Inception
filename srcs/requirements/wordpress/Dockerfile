@@ -6,7 +6,7 @@
 #    By: pfrances <pfrances@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 12:19:44 by pfrances          #+#    #+#              #
-#    Updated: 2023/05/26 12:19:45 by pfrances         ###   ########.fr        #
+#    Updated: 2023/05/26 18:31:45 by pfrances         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,14 @@ RUN apt update && apt upgrade -y && apt install wget php7.3 php-fpm php-mysql ma
 RUN chown -R root:root /var/www/wordpress
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
-RUN echo -e "clear_env=no\nlisten=wordpress:9000" >> /etc/php/7.3/fpm/php-fpm.conf
+RUN echo "clear_env=no" >> /etc/php/7.3/fpm/php-fpm.conf
+RUN echo "listen=wordpress:9000" >> /etc/php/7.3/fpm/php-fpm.conf
 
 COPY conf/auto_config.sh /tmp/
 RUN chmod +x /tmp/auto_config.sh
 
+EXPOSE 9000
+
 ENTRYPOINT ["sh", "/tmp/auto_config.sh"]
+
+CMD ["/usr/sbin/php-fpm7.3", "-F"]

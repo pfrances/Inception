@@ -1,6 +1,7 @@
-sleep 5
+sleep 10
+mkdir -p /run/php
 wp config create	--allow-root \
-					--dbname=$SQL_DATABASE \
-					--dbuser=$SQL_USER \
-					--dbpass=$SQL_PASSWORD \
+					--dbname=$MYSQL_DATABASE \
+					--dbuser=$MYSQL_USER \
+					--dbpass=$MYSQL_PASSWORD \
 					--dbhost=mariadb:3306 --path='/var/www/wordpress'
