@@ -28,7 +28,6 @@ services:
         env_file: .env
         ports:
         - "443:443"
-        - "80:80"
         restart: on-failure
     wordpress:
         container_name: wordpress
