@@ -6,7 +6,7 @@
 #    By: pfrances <pfrances@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 12:19:44 by pfrances          #+#    #+#              #
-#    Updated: 2023/05/26 18:31:45 by pfrances         ###   ########.fr        #
+#    Updated: 2023/05/29 13:03:08 by pfrances         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,6 @@ RUN echo "listen=wordpress:9000" >> /etc/php/7.3/fpm/php-fpm.conf
 
 COPY conf/auto_config.sh /tmp/
 RUN chmod +x /tmp/auto_config.sh
-
-EXPOSE 9000
 
 ENTRYPOINT ["sh", "/tmp/auto_config.sh"]
 

@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 
 services:
     mariadb:
@@ -17,7 +17,7 @@ services:
     nginx:
         container_name: nginx
         volumes:
-        - wordpress:/var/www/wordpress
+        - wordpress:/var/www/html
         networks:
         - inception
         depends_on:
@@ -32,7 +32,7 @@ services:
         container_name: wordpress
         env_file: .env
         volumes:
-        - wordpress:/var/www/wordpress
+        - wordpress:/var/www/html
         networks:
         - inception
         build:
