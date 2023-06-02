@@ -3,9 +3,8 @@ version: "3"
 services:
     mariadb:
         container_name: mariadb
-        build:
-            context: requirements/mariadb
-            dockerfile: Dockerfile
+        image: mariadb
+        build: ./requirements/mariadb
         volumes:
         - mariadb:/var/lib/mysql
         networks:
@@ -14,9 +13,8 @@ services:
         restart: always
     nginx:
         container_name: nginx
-        build:
-            context: requirements/nginx
-            dockerfile: Dockerfile
+        image: nginx
+        build: ./requirements/nginx
         env_file: .env
         volumes:
         - wordpress:/var/www/html
@@ -29,9 +27,8 @@ services:
         restart: always
     wordpress:
         container_name: wordpress
-        build:
-            context: requirements/wordpress
-            dockerfile: Dockerfile
+        image: wordpress
+        build: ./requirements/wordpress
         env_file: .env
         volumes:
         - wordpress:/var/www/html/

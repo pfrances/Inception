@@ -6,51 +6,46 @@
 #    By: pfrances <pfrances@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 16:06:22 by pfrances          #+#    #+#              #
-#    Updated: 2023/05/30 19:28:04 by pfrances         ###   ########.fr        #
+#    Updated: 2023/06/02 20:15:37 by pfrances         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS_DIR = ./srcs
-REQUIREMENTS_DIR = $(SRCS_DIR)/requirements
+SRCS_DIR=./srcs
 
-NGINX_DIR = $(REQUIREMENTS_DIR)/nginx
-MARIADB_DIR = $(REQUIREMENTS_DIR)/mariadb
-WORDPRESS_DIR = $(REQUIREMENTS_DIR)/wordpress
+WP_VOLUME_DIR=/home/pfrances/data/wordpress/
+DB_VOLUME_DIR=/home/pfrances/data/mariadb/
 
 DOCKER_COMPOSE = $(SRCS_DIR)/docker-compose.yml
 
-all: start
+all: up
 
-start: add-host make-volume-dir
-	sudo apt update && sudo apt upgrade -y
+up: add-host $(WP_VOLUME_DIR) $(DB_VOLUME_DIR)
 	docker-compose -f $(DOCKER_COMPOSE) up -d
 
 stop:
 	docker-compose -f $(DOCKER_COMPOSE) stop
 
-re: down build start
-
 down:
-	-docker stop `docker ps -qa`
-	-docker rm `docker ps -qa`
-	-docker rmi -f `docker images -qa`
-	-docker volume rm `docker volume ls -q`
 	docker-compose -f $(DOCKER_COMPOSE) down
-	-docker network rm `docker network ls -q`
-	make remove-volume
+
+clean: down
+	docker-compose -f $(DOCKER_COMPOSE) down --volumes --rmi all
+
+fclean: clean
+	sudo rm -rf $(WP_VOLUME_DIR) $(DB_VOLUME_DIR)
+
+$(WP_VOLUME_DIR):
+	sudo mkdir -p $(WP_VOLUME_DIR)
+
+$(DB_VOLUME_DIR):
+	sudo mkdir -p $(DB_VOLUME_DIR)
+
+re: fclean all
 
 add-host:
-	@sudo cat /etc/hosts | grep "127.0.0.1 pfrances.42.fr" > /dev/null || sudo echo '127.0.0.1 pfrances.42.fr' >> /etc/hosts
-
-make-volume-dir:
-	sudo mkdir -p /home/pfrances/data/wordpress
-	sudo mkdir -p /home/pfrances/data/mariadb
-
-remove-volume:
-	-sudo rm -rf /home/pfrances/data/mariadb/* /home/pfrances/data/wordpress/*
+	@sudo cat /etc/hosts | grep "pfrances.42.fr" > /dev/null || sudo echo '127.0.0.1	pfrances.42.fr' >> /etc/hosts
 
 build:
-	docker-compose -f $(DOCKER_COMPOSE) down --volumes --rmi all
 	docker-compose -f $(DOCKER_COMPOSE) build --no-cache
 
-.PHONY: all start stop rebuild add-host stop-service make-volume-dir remove-volume build re
+.PHONY: all up stop down clean re add-host build
