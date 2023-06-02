@@ -6,7 +6,7 @@
 #    By: pfrances <pfrances@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 16:06:22 by pfrances          #+#    #+#              #
-#    Updated: 2023/05/30 09:54:04 by pfrances         ###   ########.fr        #
+#    Updated: 2023/05/30 19:28:04 by pfrances         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,4 +53,4 @@ build:
 	docker-compose -f $(DOCKER_COMPOSE) down --volumes --rmi all
 	docker-compose -f $(DOCKER_COMPOSE) build --no-cache
 
-.PHONY: all start stop rebuild add-host stop-service make-volume-dir remove  n-volume build re
+.PHONY: all start stop rebuild add-host stop-service make-volume-dir remove-volume build re
