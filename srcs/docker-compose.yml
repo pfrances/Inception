@@ -43,13 +43,13 @@ volumes:
         driver_opts:
             type: 'none'
             o: 'bind'
-            device: "/home/pfrances/data/wordpress"
+            device: '/home/pfrances/data/wordpress'
     mariadb:
         driver: local
         driver_opts:
             type: 'none'
             o: 'bind'
-            device: "/home/pfrances/data/mariadb"
+            device: '/home/pfrances/data/mariadb'
 networks:
     inception:
         driver: bridge
