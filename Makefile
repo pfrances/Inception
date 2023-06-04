@@ -6,7 +6,7 @@
 #    By: pfrances <pfrances@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 16:06:22 by pfrances          #+#    #+#              #
-#    Updated: 2023/06/03 09:50:21 by pfrances         ###   ########.fr        #
+#    Updated: 2023/06/04 18:53:53 by pfrances         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ stop:
 down:
 	docker-compose -f $(DOCKER_COMPOSE) down
 
-clean: down
+clean:
 	docker-compose -f $(DOCKER_COMPOSE) down --volumes --rmi all
 
 fclean: clean

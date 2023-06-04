@@ -1,3 +1,5 @@
+#!/bin/sh
+
 sleep 5
 wp config create	--allow-root \
 					--path=$WP_PATH \
