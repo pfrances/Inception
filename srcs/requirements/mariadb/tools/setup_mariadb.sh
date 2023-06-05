@@ -12,6 +12,5 @@ if ! [ -d "/var/lib/mysql/$MYSQL_DB_NAME" ]; then
     mysql -u root -p$MYSQL_ROOT_PASSWORD < temp.sql
     rm -f temp.sql
 fi
-sleep infinity
 
 mysqld

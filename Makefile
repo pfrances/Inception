@@ -6,19 +6,22 @@
 #    By: pfrances <pfrances@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 16:06:22 by pfrances          #+#    #+#              #
-#    Updated: 2023/06/04 18:53:53 by pfrances         ###   ########.fr        #
+#    Updated: 2023/06/05 18:53:02 by pfrances         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS_DIR=./srcs
-DOCKER_COMPOSE = $(SRCS_DIR)/docker-compose.yml
+DOCKER_COMPOSE=$(SRCS_DIR)/docker-compose.yml
 
 WP_VOLUME_DIR=/home/pfrances/data/wordpress/
 DB_VOLUME_DIR=/home/pfrances/data/mariadb/
 
+ENV=$(SRCS_DIR)/.env
+ENV_SAMPLE=./env_sample
+
 all: up
 
-up: add-host $(WP_VOLUME_DIR) $(DB_VOLUME_DIR)
+up: $(ENV) add-host $(WP_VOLUME_DIR) $(DB_VOLUME_DIR)
 	docker-compose -f $(DOCKER_COMPOSE) up -d
 
 stop:
@@ -46,5 +49,8 @@ add-host:
 
 build:
 	docker-compose -f $(DOCKER_COMPOSE) build --no-cache
+
+$(ENV):
+	cp $(ENV_SAMPLE) $(ENV)
 
 .PHONY: all up stop down clean fclean re add-host build
